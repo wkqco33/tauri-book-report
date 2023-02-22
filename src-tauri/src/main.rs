@@ -12,7 +12,11 @@ async fn greet(name: &str) -> Result<String, String> {
     let book_data = get_rank_data("1").await;
 
     match book_data {
-        Ok(data) => println!("{:?}", data),
+        Ok(data) => {
+            data.iter().for_each(|book| {
+                println!("{:?}", book);
+            });
+        },
         Err(e) => {
             println!("{:?}", e);
             return Err(e.to_string());
