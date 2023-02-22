@@ -5,10 +5,21 @@
 
 mod controller;
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+use controller::data_controller::get_rank_data;
+
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+async fn greet(name: &str) -> Result<String, String> {
+    let book_data = get_rank_data("1").await;
+
+    match book_data {
+        Ok(data) => println!("{:?}", data),
+        Err(e) => {
+            println!("{:?}", e);
+            return Err(e.to_string());
+        }
+    }
+
+    Ok(format!("Hello, {}! You've been greeted from Rust!", name))
 }
 
 fn main() {
