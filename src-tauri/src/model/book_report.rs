@@ -60,4 +60,20 @@ impl BookReport {
     pub fn get_favorite(&self) -> bool {
         self.favorite
     }
+
+    pub fn get_author(&self) -> String {
+        self.author.clone()
+    }
+
+    pub fn get_start_date(&self) -> String {
+        self.start_date.clone()
+    }
+
+    pub fn get_end_date(&self) -> String {
+        self.end_date.clone()
+    }
+
+    pub fn get_description(&self) -> String {
+        self.description.clone()
+    }
 }
