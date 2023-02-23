@@ -7,10 +7,7 @@ pub async fn request_rank_data(page: i32) -> Result<Vec<BookInfo>, String> {
 
     match book_data {
         Ok(data) => {
-            data.iter().for_each(|book| {
-                println!("{:?}", book);
-            });
-            return Ok(data);
+            Ok(data)
         },
         Err(e) => {
             println!("{:?}", e);

@@ -11,11 +11,7 @@ use controller::db_controller::BookReportDB;
 use model::book_info::BookInfo;
 
 fn main() {
-
-    match BookReportDB::init_database() {
-        Ok(_) => println!("Database initialized"),
-        Err(_) => println!("Failed to initialize database"),
-    }
+    BookReportDB::init_database();
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![request_rank_data])

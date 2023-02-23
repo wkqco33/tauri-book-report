@@ -16,14 +16,15 @@
     <div class="d-flex align-items-start">
       <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <button class="nav-link active" id="v-list-tab" data-bs-toggle="pill" data-bs-target="#v-list" type="button"
-          role="tab" aria-controls="v-list" aria-selected="true">List</button>
+          role="tab" aria-controls="v-list" aria-selected="true">독서감상문</button>
         <button class="nav-link" id="v-favorite-tab" data-bs-toggle="pill" data-bs-target="#v-favorite" type="button"
-          role="tab" aria-controls="v-favorite" aria-selected="false">Favorite</button>
+          role="tab" aria-controls="v-favorite" aria-selected="false">즐겨찾기</button>
         <button class="nav-link" id="v-wish-tab" data-bs-toggle="pill" data-bs-target="#v-wish" type="button" role="tab"
-          aria-controls="v-wish" aria-selected="false">Wish</button>
+          aria-controls="v-wish" aria-selected="false">인기대출순위</button>
         <button class="nav-link" id="v-about-tab" data-bs-toggle="pill" data-bs-target="#v-about" type="button"
-          role="tab" aria-controls="v-about" aria-selected="false">About</button>
+          role="tab" aria-controls="v-about" aria-selected="false">앱정보</button>
       </div>
+
       <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-list" role="tabpanel" aria-labelledby="v-list-tab" tabindex="0">
           <p>독서 감상문 목록</p>
@@ -33,12 +34,21 @@
         </div>
         <div class="tab-pane fade" id="v-favorite" role="tabpanel" aria-labelledby="v-favorite-tab" tabindex="0">
           즐겨찾기 리스트</div>
-        <div class="tab-pane fade" id="v-wish" role="tabpanel" aria-labelledby="v-wish-tab" tabindex="0">위시 리스트</div>
+        <div class="tab-pane fade" id="v-wish" role="tabpanel" aria-labelledby="v-wish-tab" tabindex="0">
+            <div class="container">
+              <h1>인기 대출 도서</h1>
+            </div>
+            <div id="book_rank_list">
+
+            </div>
+        </div>
         <div class="tab-pane fade" id="v-about" role="tabpanel" aria-labelledby="v-about-tab" tabindex="0">어플 정보</div>
       </div>
     </div>
+
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="main.js"></script>
+    <script src="controller/book_report_controller.js"></script>
 </body>
 
 </html>

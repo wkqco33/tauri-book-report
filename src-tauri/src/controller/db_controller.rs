@@ -1,13 +1,9 @@
-use std::error::Error;
+use rusqlite::Connection;
 
-use rusqlite::{Connection, Result};
-
-pub struct BookReportDB {
-    conn: Connection,
-}
+pub struct BookReportDB;
 
 impl BookReportDB {
-    pub fn init_database() -> Result<Connection, Box<dyn Error + Send + Sync>> {
+    pub fn init_database() {
         let conn = Connection::open("book_report.db").expect("Failed to open database");
 
         conn.execute(
@@ -24,7 +20,5 @@ impl BookReportDB {
             (),
         )
         .expect("Failed to create table");
-
-        Ok(conn)
     }
 }

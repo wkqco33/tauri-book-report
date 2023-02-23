@@ -24,8 +24,6 @@ pub async fn get_book_rank_data(
         page_size = page_size,
     );
 
-    print!("{:?}", url);
-
     let resp = get(&url).await;
     let mut book_info_vec: Vec<BookInfo> = Vec::new();
 
