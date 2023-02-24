@@ -1,7 +1,7 @@
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct BookInfo {
     year: String,
-    rank: String,
+    pub rank: String,
     book_name: String,
     author: String,
     publisher: String,

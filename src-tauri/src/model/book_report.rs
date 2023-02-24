@@ -1,3 +1,4 @@
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct BookReport {
     id: i32,
     title: String,

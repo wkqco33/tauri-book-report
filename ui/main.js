@@ -4,13 +4,13 @@ window.addEventListener("DOMContentLoaded", async () => {
   let htmlCon = new HTMLController();
   htmlCon.includeHTML();
 
+  let bookRankCon = new BookRankController();
+  // TODO: Add Loading Animation
+  let book_rank_data = await bookRankCon.request_rank_data(1);
+  bookRankCon.show_rank_data(book_rank_data);
+  
   let bookReportCon = new BookReportController();
-  let book_rank_data = await bookReportCon.request_rank_data(1);
-
-  book_rank_data.forEach(element => {
-    let book_name = document.createElement("div");
-    book_name.className = "card p-2 m-2";
-    book_name.innerHTML = element.book_name;
-    document.querySelector("#book_rank_list").appendChild(book_name)
-  });
+  // TODO: Add Loading Animation
+  let book_report_data = await bookReportCon.request_all_report_data();
+  bookReportCon.show_report_data(book_report_data);
 });

@@ -6,6 +6,7 @@
 mod controller;
 mod model;
 
+use controller::command_controller::request_all_report_data;
 use controller::command_controller::request_rank_data;
 use controller::db_controller::BookReportDB;
 use model::book_info::BookInfo;
@@ -23,7 +24,10 @@ fn main() {
             }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![request_rank_data])
+        .invoke_handler(tauri::generate_handler![
+            request_rank_data,
+            request_all_report_data
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
