@@ -25,3 +25,13 @@ pub fn request_all_report_data() -> Result<Vec<BookReport>, String> {
         }
     }
 }
+
+#[tauri::command]
+pub fn request_save_report(book_report: BookReport) -> Result<bool, bool> {
+    let result = BookReportDB::insert_book_report(&book_report);
+
+    match result {
+        Ok(_) => Ok(true),
+        Err(_) => Err(false),
+    }
+}

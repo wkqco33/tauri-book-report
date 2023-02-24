@@ -2,7 +2,7 @@ class HTMLController {
     constructor() { }
 
     includeHTML() {
-        const includeArea = document.querySelectorAll('[include-html]');
+        const includeArea = document.querySelectorAll('[data-include]');
 
         for (let dom of includeArea) {
             const url = dom.dataset.include;
@@ -10,7 +10,7 @@ class HTMLController {
                 .then(response => response.text())
                 .then(data => {
                     dom.innerHTML = data;
-                    dom.removeAttribute('include-html');
+                    dom.removeAttribute('data-include');
                 });
         }
     }

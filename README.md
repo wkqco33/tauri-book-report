@@ -20,3 +20,15 @@ Tauri 프레임워크를 활용하여 개발하는 독서 감상문 작성 앱
 ## 도서 정보
 
 - [경기데이터드림](https://data.gg.go.kr/)에서 제공하는 도서 정보를 활용
+
+## 앱 실행
+
+```bash
+cargo tauri dev # 개발 모드
+```
+
+## 앱 빌드
+
+```bash
+cargo tauri build # 빌드
+```

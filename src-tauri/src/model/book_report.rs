@@ -6,7 +6,7 @@ pub struct BookReport {
     author: String,
     start_date: String,
     end_date: String,
-    favorite: bool,
+    publisher: String,
     description: String,
 }
 
@@ -18,7 +18,7 @@ impl BookReport {
         author: String,
         start_date: String,
         end_date: String,
-        favorite: bool,
+        publisher: String,
         description: String,
     ) -> Self {
         BookReport {
@@ -28,7 +28,7 @@ impl BookReport {
             author,
             start_date,
             end_date,
-            favorite,
+            publisher,
             description,
         }
     }
@@ -41,7 +41,7 @@ impl BookReport {
             author: "".to_string(),
             start_date: "".to_string(),
             end_date: "".to_string(),
-            favorite: false,
+            publisher: "".to_string(),
             description: "".to_string(),
         }
     }
@@ -58,8 +58,8 @@ impl BookReport {
         self.book_name.clone()
     }
 
-    pub fn get_favorite(&self) -> bool {
-        self.favorite
+    pub fn get_favorite(&self) -> String {
+        self.publisher.clone()
     }
 
     pub fn get_author(&self) -> String {

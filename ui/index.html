@@ -8,8 +8,6 @@
 
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
-
-  <script src="controller/include.js"></script>
 </head>
 
 <body class="m-3">
@@ -20,9 +18,9 @@
         <button class="nav-link active" id="v-list-tab" data-bs-toggle="pill" data-bs-target="#v-list" type="button"
           role="tab" aria-controls="v-list" aria-selected="true">독서감상문</button>
         <button class="nav-link" id="v-favorite-tab" data-bs-toggle="pill" data-bs-target="#v-favorite" type="button"
-          role="tab" aria-controls="v-favorite" aria-selected="false">즐겨찾기</button>
+          role="tab" aria-controls="v-favorite" aria-selected="false">찜한도서</button>
         <button class="nav-link" id="v-wish-tab" data-bs-toggle="pill" data-bs-target="#v-wish" type="button" role="tab"
-          aria-controls="v-wish" aria-selected="false">인기대출순위</button>
+          aria-controls="v-wish" aria-selected="false">인기대출도서</button>
         <button class="nav-link" id="v-about-tab" data-bs-toggle="pill" data-bs-target="#v-about" type="button"
           role="tab" aria-controls="v-about" aria-selected="false">앱정보</button>
       </div>
@@ -32,23 +30,39 @@
           <div>
             <h1>독서 감상문</h1>
           </div>
-          <div id="book_report_list"></div>
-          <div>
-            <a href="pages/report.html" class="btn btn-primary">새로쓰기</a>
+          <div class="d-flex flex-row-reverse">
+            <a href="report.html" class="btn btn-success">새로쓰기</a>
           </div>
+          <div id="book_report_list"></div>
         </div>
         <div class="tab-pane fade" id="v-favorite" role="tabpanel" aria-labelledby="v-favorite-tab" tabindex="0">
-          즐겨찾기 리스트</div>
+          <div>
+            <h1>찜한 도서 목록</h1>
+          </div>
+          <div id="book_wish_list">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text text-center p-5">개발 예정</p>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="tab-pane fade" id="v-wish" role="tabpanel" aria-labelledby="v-wish-tab" tabindex="0">
           <div>
-            <h1>인기 대출 도서</h1>
+            <h1>인기 대출 도서 50</h1>
           </div>
           <div id="book_rank_list"></div>
         </div>
-        <div class="tab-pane fade" id="v-about" role="tabpanel" aria-labelledby="v-about-tab" tabindex="0">어플 정보</div>
+        <div class="tab-pane fade" id="v-about" role="tabpanel" aria-labelledby="v-about-tab" tabindex="0">
+          <div>
+            <h1>앱 정보</h1>
+          </div>
+          <div data-include="./component/app_info.html"></div>
+        </div>
       </div>
     </div>
 
+    <script src="controller/include.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="main.js"></script>
     <script src="controller/book_report_controller.js"></script>

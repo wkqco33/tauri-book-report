@@ -27,19 +27,26 @@ class BookRankController {
         book_card_col2.className = "col-md-8";
 
         let book_card_body = book_card_col2.appendChild(document.createElement("div"));
-        book_card_body.className = "card-body";
+        book_card_body.className = "card-body m-2";
 
         let book_card_title = book_card_body.appendChild(document.createElement("h5"));
-        book_card_title.className = "card-title";
+        book_card_title.className = "card-title text-center";
         book_card_title.innerHTML = data.book_name + (data.volume == null || data.volume == "" ? "" : " - <small>" + data.volume + "권</small>");
 
-        let book_card_author = book_card_body.appendChild(document.createElement("p"));
-        book_card_author.className = "card-text";
-        book_card_author.innerHTML = data.author;
-
         let book_card_publisher = book_card_body.appendChild(document.createElement("p"));
-        book_card_publisher.className = "card-text";
+        book_card_publisher.className = "card-text text-end mt-3";
         book_card_publisher.innerHTML = data.publisher;
+
+        let book_card_author = book_card_body.appendChild(document.createElement("p"));
+        book_card_author.className = "card-text text-end";
+        book_card_author.innerHTML = "<strong>" + data.author + "</strong>";
+
+        let book_wish_btn = book_card_body.appendChild(document.createElement("button"));
+        book_wish_btn.className = "btn btn-info position-absolute bottom-0 end-0 m-3";
+        book_wish_btn.innerHTML = "위시리스트에 추가";
+        book_wish_btn.onclick = () => {
+
+        };
 
         return book_card;
     }

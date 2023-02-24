@@ -12,7 +12,7 @@ impl BookReportDB {
 
         conn.execute(
             "CREATE TABLE IF NOT EXISTS book_report (
-                  id INTEGER PRIMARY KEY,
+                  id INTEGER AUTO_INCREMENT PRIMARY KEY,
                   title TEXT NOT NULL,
                   book_name TEXT NOT NULL,
                   author TEXT,
@@ -72,7 +72,7 @@ impl BookReportDB {
         Ok(book_report)
     }
 
-    pub fn insert_book_report(book_report: BookReport) -> Result<(), Box<dyn Error>> {
+    pub fn insert_book_report(book_report: &BookReport) -> Result<(), Box<dyn Error>> {
         let conn = Connection::open("book_report.db").expect("Failed to open database");
 
         conn.execute(
