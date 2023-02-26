@@ -8,8 +8,19 @@ class BookReportController {
     }
 
     #create_report_list_item(report) {
-        // TODO: 감상문 리스트 아이템 생성
-        console.log(report);
+        let report_item = document.createElement("div");
+        report_item.className = "m-2";
+        let report_card = report_item.appendChild(document.createElement("div"));
+        report_card.className = "card";
+        let report_card_body = report_card.appendChild(document.createElement("div"));
+        report_card_body.className = "card-body";
+        let report_title = report_card_body.appendChild(document.createElement("h5"));
+        report_title.className = "card-title";
+        report_title.innerHTML = report.title;
+        let report_writer = report_card_body.appendChild(document.createElement("h6"));
+        report_writer.className = "card-subtitle mb-2 text-muted";
+        report_writer.innerHTML = report.author;
+        return report_item;
     }
 
     #create_no_report_item() {
@@ -35,6 +46,7 @@ class BookReportController {
 
         report_data.forEach((report) => {
             console.log(report);
+            report_list.appendChild(this.#create_report_list_item(report));
         });
     }
 }

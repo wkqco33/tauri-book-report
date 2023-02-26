@@ -55,7 +55,7 @@ impl BookReportDB {
 
         let mut stmt = conn.prepare("SELECT * FROM book_report WHERE id = ?1")?;
         let book_report = stmt
-            .query_row([], |row| {
+            .query_row(rusqlite::params![id], |row| {
                 Ok(BookReport::new(
                     row.get(0).unwrap(),
                     row.get(1).unwrap(),

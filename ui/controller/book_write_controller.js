@@ -29,7 +29,7 @@ class BookWriteController {
         };
 
         invoke("request_save_report", { bookReport: book_report_data }).then((result) => {
-            if (result == "success") {
+            if (result) {
                 alert("저장되었습니다.");
                 window.location.href = "../index.html";
             }
