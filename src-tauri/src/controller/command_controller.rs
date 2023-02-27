@@ -35,3 +35,13 @@ pub fn request_save_report(book_report: BookReport) -> Result<bool, bool> {
         Err(_) => Err(false),
     }
 }
+
+#[tauri::command]
+pub fn request_delete_report(id: i32) -> Result<bool, bool> {
+    let result = BookReportDB::delete_book_report(&id);
+
+    match result {
+        Ok(_) => Ok(true),
+        Err(_) => Err(false),
+    }
+}

@@ -116,7 +116,7 @@ impl BookReportDB {
         Ok(())
     }
 
-    pub fn delete_book_report(id: i32) -> Result<(), Box<dyn Error>> {
+    pub fn delete_book_report(id: &i32) -> Result<(), Box<dyn Error>> {
         let conn = Connection::open("book_report.db").expect("Failed to open database");
 
         conn.execute(
