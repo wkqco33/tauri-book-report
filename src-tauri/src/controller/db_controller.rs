@@ -12,14 +12,16 @@ impl BookReportDB {
 
         conn.execute(
             "CREATE TABLE IF NOT EXISTS book_report (
-                  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+                  id INTEGER PRIMARY KEY AUTOINCREMENT,
                   title TEXT NOT NULL,
                   book_name TEXT NOT NULL,
                   author TEXT,
                   start_date TEXT,
                   end_date TEXT,
-                  favorite INTEGER,
-                  description TEXT
+                  publisher TEXT,
+                  description TEXT,
+                  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
                   )",
             (),
         )
@@ -29,7 +31,9 @@ impl BookReportDB {
     pub fn select_all_book_report() -> Result<Vec<BookReport>, Box<dyn Error>> {
         let conn = Connection::open("book_report.db").expect("Failed to open database");
 
-        let mut stmt = conn.prepare("SELECT * FROM book_report")?;
+        let mut stmt = conn
+            .prepare("SELECT * FROM book_report ORDER BY created_at DESC")
+            .expect("Failed to select sql prepare");
         let book_report_iter = stmt
             .query_map([], |row| {
                 Ok(BookReport::new(
@@ -41,6 +45,8 @@ impl BookReportDB {
                     row.get(5).unwrap(),
                     row.get(6).unwrap(),
                     row.get(7).unwrap(),
+                    row.get(8).unwrap(),
+                    row.get(9).unwrap(),
                 ))
             })
             .expect("Failed to select all book report");
@@ -53,7 +59,9 @@ impl BookReportDB {
     pub fn select_book_report_by_id(id: i32) -> Result<BookReport, Box<dyn Error>> {
         let conn = Connection::open("book_report.db").expect("Failed to open database");
 
-        let mut stmt = conn.prepare("SELECT * FROM book_report WHERE id = ?1")?;
+        let mut stmt = conn
+            .prepare("SELECT * FROM book_report WHERE id = ?1")
+            .expect("Failed to select sql prepare");
         let book_report = stmt
             .query_row(rusqlite::params![id], |row| {
                 Ok(BookReport::new(
@@ -65,6 +73,8 @@ impl BookReportDB {
                     row.get(5).unwrap(),
                     row.get(6).unwrap(),
                     row.get(7).unwrap(),
+                    row.get(8).unwrap(),
+                    row.get(9).unwrap(),
                 ))
             })
             .expect("Failed to select book report by id");
@@ -76,15 +86,15 @@ impl BookReportDB {
         let conn = Connection::open("book_report.db").expect("Failed to open database");
 
         conn.execute(
-            "INSERT INTO book_report (title, book_name, author, start_date, end_date, favorite, description)
-                  VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
+            "INSERT INTO book_report (title, book_name, author, start_date, end_date, publisher, description, created_at, updated_at)
+                  VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, datetime('now'), datetime('now'))",
             rusqlite::params![
                 book_report.get_title(),
                 book_report.get_book_name(),
                 book_report.get_author(),
                 book_report.get_start_date(),
                 book_report.get_end_date(),
-                book_report.get_favorite(),
+                book_report.get_publisher(),
                 book_report.get_description()
             ],
         )
@@ -98,7 +108,7 @@ impl BookReportDB {
 
         conn.execute(
             "UPDATE book_report
-                  SET title = ?1, book_name = ?2, author = ?3, start_date = ?4, end_date = ?5, favorite = ?6, description = ?7
+                  SET title = ?1, book_name = ?2, author = ?3, start_date = ?4, end_date = ?5, publisher = ?6, description = ?7, updated_at = datetime('now')
                   WHERE id = ?8",
             rusqlite::params![
                 book_report.get_title(),
@@ -106,7 +116,7 @@ impl BookReportDB {
                 book_report.get_author(),
                 book_report.get_start_date(),
                 book_report.get_end_date(),
-                book_report.get_favorite(),
+                book_report.get_publisher(),
                 book_report.get_description(),
                 book_report.get_id()
             ],

@@ -8,6 +8,8 @@ pub struct BookReport {
     end_date: String,
     publisher: String,
     description: String,
+    created_at: String,
+    updated_at: String,
 }
 
 impl BookReport {
@@ -20,6 +22,8 @@ impl BookReport {
         end_date: String,
         publisher: String,
         description: String,
+        created_at: String,
+        updated_at: String,
     ) -> Self {
         BookReport {
             id,
@@ -30,6 +34,8 @@ impl BookReport {
             end_date,
             publisher,
             description,
+            created_at,
+            updated_at,
         }
     }
 
@@ -43,6 +49,8 @@ impl BookReport {
             end_date: "".to_string(),
             publisher: "".to_string(),
             description: "".to_string(),
+            created_at: "".to_string(),
+            updated_at: "".to_string(),
         }
     }
 
@@ -58,7 +66,7 @@ impl BookReport {
         self.book_name.clone()
     }
 
-    pub fn get_favorite(&self) -> String {
+    pub fn get_publisher(&self) -> String {
         self.publisher.clone()
     }
 

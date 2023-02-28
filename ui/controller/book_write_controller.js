@@ -25,7 +25,9 @@ class BookWriteController {
             "publisher": bookPublisher,
             "start_date": bookStartDate,
             "end_date": bookEndDate,
-            "description": bookReport
+            "description": bookReport,
+            "created_at": "",
+            "updated_at": ""
         };
 
         invoke("request_save_report", { bookReport: book_report_data }).then((result) => {
@@ -40,8 +42,10 @@ class BookWriteController {
     }
 }
 
-document.querySelector("#save_report").addEventListener("click", () => {
-    console.log("save_report button clicked");
-    let bookWriteCon = new BookWriteController();
-    bookWriteCon.on_save_report_button_click();
+window.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#save_report").addEventListener("click", () => {
+        console.log("save_report button clicked");
+        let bookWriteCon = new BookWriteController();
+        bookWriteCon.on_save_report_button_click();
+    });
 });

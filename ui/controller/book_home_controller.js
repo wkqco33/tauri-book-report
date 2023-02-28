@@ -29,8 +29,19 @@ class BookReportController {
         report_author.className = "card-subtitle mb-2 text-muted";
         report_author.innerHTML = report.author;
 
-        let report_delete_button = report_card_body.appendChild(document.createElement("a"));
-        report_delete_button.className = "btn btn-danger btn-sm float-end";
+        let report_button_group = report_card_body.appendChild(document.createElement("div"));
+        report_button_group.className = "d-grid gap-2 d-md-flex justify-content-md-end";
+
+        let report_update_button = report_button_group.appendChild(document.createElement("a"));
+        report_update_button.className = "btn btn-primary btn-sm me-md-2";
+        report_update_button.innerHTML = "수정";
+        report_update_button.addEventListener("click", () => {
+            console.log("update report " + report.id);
+            // window.location.href = "book_write.html?id=" + report.id;
+        });
+
+        let report_delete_button = report_button_group.appendChild(document.createElement("a"));
+        report_delete_button.className = "btn btn-danger btn-sm";
         report_delete_button.innerHTML = "삭제";
         report_delete_button.addEventListener("click", () => {
             console.log("delete report " + report.id);
