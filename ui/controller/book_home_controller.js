@@ -29,11 +29,42 @@ class BookReportController {
         report_author.className = "card-subtitle mb-2 text-muted";
         report_author.innerHTML = report.author;
 
-        let report_button_group = report_card_body.appendChild(document.createElement("div"));
+        let report_description_accordion = report_card_body.appendChild(document.createElement("div"));
+        report_description_accordion.className = "accordion accordion-flush";
+        report_description_accordion.id = "book_report_accordion";
+
+        let report_description_accordion_item = report_description_accordion.appendChild(document.createElement("div"));
+        report_description_accordion_item.className = "accordion-item";
+
+        let report_description_accordion_header = report_description_accordion_item.appendChild(document.createElement("h2"));
+        report_description_accordion_header.className = "accordion-header";
+        report_description_accordion_header.id = "header_" + report.id;
+
+        let report_description_accordion_button = report_description_accordion_header.appendChild(document.createElement("button"));
+        report_description_accordion_button.className = "accordion-button collapsed";
+        report_description_accordion_button.setAttribute("data-bs-toggle", "collapse");
+        report_description_accordion_button.setAttribute("data-bs-target", "#collapse_" + report.id);
+        report_description_accordion_button.setAttribute("aria-expanded", "false");
+        report_description_accordion_button.setAttribute("aria-controls", "collapse_" + report.id);
+        report_description_accordion_button.id = "button_" + report.id;
+        report_description_accordion_button.type = "button";
+        report_description_accordion_button.innerHTML = "감상문 내용 보기";
+
+        let report_description_accordion_collapse = report_description_accordion_item.appendChild(document.createElement("div"));
+        report_description_accordion_collapse.className = "accordion-collapse collapse";
+        report_description_accordion_collapse.id = "collapse_" + report.id;
+        report_description_accordion_collapse.setAttribute("aria-labelledby", "header_" + report.id);
+        report_description_accordion_collapse.setAttribute("data-bs-parent", "#book_report_accordion");
+
+        let report_description_accordion_body = report_description_accordion_collapse.appendChild(document.createElement("div"));
+        report_description_accordion_body.className = "accordion-body";
+        report_description_accordion_body.innerHTML = report.description;
+
+        let report_button_group = report_description_accordion_body.appendChild(document.createElement("div"));
         report_button_group.className = "d-grid gap-2 d-md-flex justify-content-md-end";
 
         let report_update_button = report_button_group.appendChild(document.createElement("a"));
-        report_update_button.className = "btn btn-primary btn-sm me-md-2";
+        report_update_button.className = "btn btn-primary me-md-2";
         report_update_button.innerHTML = "수정";
         report_update_button.addEventListener("click", () => {
             console.log("update report " + report.id);
@@ -41,7 +72,7 @@ class BookReportController {
         });
 
         let report_delete_button = report_button_group.appendChild(document.createElement("a"));
-        report_delete_button.className = "btn btn-danger btn-sm";
+        report_delete_button.className = "btn btn-danger";
         report_delete_button.innerHTML = "삭제";
         report_delete_button.addEventListener("click", () => {
             console.log("delete report " + report.id);
