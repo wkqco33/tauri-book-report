@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>감상문 쓰기</title>
+
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="row m-3">
+		<div class="row">
+			<div class="col">
+				<a href="index.html" class="btn btn-outline" style="font-size: 20px;">⬅</a>
+			</div>
+			<div class="col-md-10">
+				<h1 class="text-start">독서 감상문 쓰기</h1>
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="inputTitle" class="form-label">독서 감상문 제목</label>
+			<input type="text" class="form-control" id="inputTitle">
+		</div>
+		<div class="mb-3">
+			<label for="inputBookName" class="form-label">도서 제목</label>
+			<input type="text" class="form-control" id="inputBookName">
+		</div>
+		<div class="row">
+			<div class="col mb-3">
+				<label for="inputAuthor" class="form-label">글쓴이</label>
+				<input type="text" class="form-control" id="inputAuthor">
+			</div>
+			<div class="col mb-3">
+				<label for="inputPublisher" class="form-label">출판사</label>
+				<input type="text" class="form-control" id="inputPublisher">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col mb-3">
+				<label for="inputStartDate" class="form-label">독서 시작일</label>
+				<input type="date" class="form-control" id="inputStartDate">
+			</div>
+			<div class="col mb-3">
+				<label for="inputEndDate" class="form-label">독서 완료일</label>
+				<input type="date" class="form-control" id="inputEndDate">
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="inputBookReport" class="form-label">독서 감상 내용</label>
+			<textarea type="text" class="form-control" id="inputBookReport" rows="10"></textarea>
+		</div>
+		<div class="text-end">
+			<button type="button" id="save_report" class="btn btn-success" style="width: 100px;">저장하기</button>
+			<a href="index.html" class="btn btn-danger ms-3" style="width: 100px;">취소</a>
+		</div>
+	</div>
+
+	<div data-include="component/modals.html"></div>
+
+	<script src="controller/include.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="controller/book_write_controller.js"></script>
+</body>
+
+</html>

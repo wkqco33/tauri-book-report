@@ -1,11 +1,12 @@
 const { invoke } = window.__TAURI__.tauri;
 
-async function greet() {
-  invoke("greet", { name: "Test" }).then((res) => {
-    console.log(res);
-  });
-}
+window.addEventListener("DOMContentLoaded", async () => {
+  let bookRankCon = new BookRankController();
+  let bookRankData = await bookRankCon.requestRankData(1);
+  bookRankCon.showRankData(bookRankData);
+  // bookRankCon.showRankData(""); // Test code
 
-window.addEventListener("DOMContentLoaded", () => {
-  greet();
+  let bookReportCon = new BookReportController();
+  let bookReportData = await bookReportCon.requestAllReportData();
+  bookReportCon.showReportData(bookReportData);
 });
