@@ -56,7 +56,7 @@ impl BookReportDB {
         Ok(book_report_vec)
     }
 
-    pub fn select_book_report_by_id(id: i32) -> Result<BookReport, Box<dyn Error>> {
+    pub fn select_book_report_by_id(id: &i32) -> Result<BookReport, Box<dyn Error>> {
         let conn = Connection::open("book_report.db").expect("Failed to open database");
 
         let mut stmt = conn
@@ -103,7 +103,7 @@ impl BookReportDB {
         Ok(())
     }
 
-    pub fn update_book_report(book_report: BookReport) -> Result<(), Box<dyn Error>> {
+    pub fn update_book_report(book_report: &BookReport) -> Result<(), Box<dyn Error>> {
         let conn = Connection::open("book_report.db").expect("Failed to open database");
 
         conn.execute(

@@ -1,13 +1,15 @@
-class BookRankController {
-    constructor() { }
+class BookRankController extends BookController {
+    constructor() {
+        super();
+    }
 
-    request_rank_data(page) {
+    requestRankData(page) {
         return new Promise((resolve, _) => {
             resolve(invoke("request_rank_data", { page: page }));
         });
     }
 
-    #create_book_card(data) {
+    #createBookCard(data) {
         let book_card = document.createElement("div");
         book_card.className = "card p-2 m-2";
 
@@ -51,9 +53,16 @@ class BookRankController {
         return book_card;
     }
 
-    show_rank_data(data) {
+    showRankData(data) {
+        let reportList = document.querySelector("#book_rank_list");
+
+        if (data == null || Object.keys(data).length == 0) {
+            reportList.appendChild(this.createNoItemCard("랭킹 데이터를 불러올 수 없습니다."));
+            return;
+        }
+
         data.forEach(element => {
-            document.querySelector("#book_rank_list").appendChild(this.#create_book_card(element));
+            reportList.appendChild(this.#createBookCard(element));
         });
     }
 }

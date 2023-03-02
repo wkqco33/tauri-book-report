@@ -15,3 +15,6 @@ class HTMLController {
         }
     }
 }
+
+const htmlCon = new HTMLController();
+htmlCon.includeHTML();
