@@ -31,9 +31,15 @@ jobs:
         with:
           workspaces: './src-tauri -> target'
 
-      - name: Make key.txt
+      - name: Make key.txt (windows only)
+        if: matrix.platform == 'windows-latest'
         run: |
-          echo ${{ secrets.KEY }} > key.txt
+          echo ${{ secrets.KEY }} > .\src-tauri\src\controller\key.txt
+
+      - name: Make key.txt
+        if: matrix.platform != 'windows-latest'
+        run: |
+          echo ${{ secrets.KEY }} > ./src-tauri/src/controller/key.txt
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
