@@ -6,13 +6,20 @@
 mod controller;
 mod model;
 
+use std::mem::MaybeUninit;
+
 use controller::command_controller::*;
 use controller::db_controller::BookReportDB;
 use model::book_info::BookInfo;
 use tauri::Manager;
 
+ static mut BOOK_REPORT_DB: MaybeUninit<BookReportDB> = MaybeUninit::uninit();
+
 fn main() {
-    BookReportDB::init_database();
+    unsafe {
+        BOOK_REPORT_DB = MaybeUninit::new(BookReportDB::new());
+        BOOK_REPORT_DB.assume_init_ref().init_database();
+    }
 
     tauri::Builder::default()
         .setup(|app| {

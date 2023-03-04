@@ -4,13 +4,19 @@ use rusqlite::Connection;
 
 use super::super::model::book_report::BookReport;
 
-pub struct BookReportDB;
+pub struct BookReportDB {
+    pub conn: Connection,
+}
 
 impl BookReportDB {
-    pub fn init_database() {
-        let conn = Connection::open("book_report.db").expect("Failed to open database");
+    pub fn new() -> BookReportDB {
+        BookReportDB {
+            conn: Connection::open_in_memory().expect("Failed to open database"),
+        }
+    }
 
-        conn.execute(
+    pub fn init_database(&self) {
+        self.conn.execute(
             "CREATE TABLE IF NOT EXISTS book_report (
                   id INTEGER PRIMARY KEY AUTOINCREMENT,
                   title TEXT NOT NULL,
@@ -26,12 +32,12 @@ impl BookReportDB {
             (),
         )
         .expect("Failed to create table");
+
+        println!("Database initialized");
     }
 
-    pub fn select_all_book_report() -> Result<Vec<BookReport>, Box<dyn Error>> {
-        let conn = Connection::open("book_report.db").expect("Failed to open database");
-
-        let mut stmt = conn
+    pub fn select_all_book_report(&self) -> Result<Vec<BookReport>, Box<dyn Error>> {
+        let mut stmt = self.conn
             .prepare("SELECT * FROM book_report ORDER BY created_at DESC")
             .expect("Failed to select sql prepare");
         let book_report_iter = stmt
@@ -56,10 +62,8 @@ impl BookReportDB {
         Ok(book_report_vec)
     }
 
-    pub fn select_book_report_by_id(id: &i32) -> Result<BookReport, Box<dyn Error>> {
-        let conn = Connection::open("book_report.db").expect("Failed to open database");
-
-        let mut stmt = conn
+    pub fn select_book_report_by_id(&self, id: &i32) -> Result<BookReport, Box<dyn Error>> {
+        let mut stmt = self.conn
             .prepare("SELECT * FROM book_report WHERE id = ?1")
             .expect("Failed to select sql prepare");
         let book_report = stmt
@@ -82,10 +86,8 @@ impl BookReportDB {
         Ok(book_report)
     }
 
-    pub fn insert_book_report(book_report: &BookReport) -> Result<(), Box<dyn Error>> {
-        let conn = Connection::open("book_report.db").expect("Failed to open database");
-
-        conn.execute(
+    pub fn insert_book_report(&self, book_report: &BookReport) -> Result<(), Box<dyn Error>> {
+        self.conn.execute(
             "INSERT INTO book_report (title, book_name, author, start_date, end_date, publisher, description, created_at, updated_at)
                   VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, datetime('now'), datetime('now'))",
             rusqlite::params![
@@ -103,10 +105,8 @@ impl BookReportDB {
         Ok(())
     }
 
-    pub fn update_book_report(book_report: &BookReport) -> Result<(), Box<dyn Error>> {
-        let conn = Connection::open("book_report.db").expect("Failed to open database");
-
-        conn.execute(
+    pub fn update_book_report(&self, book_report: &BookReport) -> Result<(), Box<dyn Error>> {
+        self.conn.execute(
             "UPDATE book_report
                   SET title = ?1, book_name = ?2, author = ?3, start_date = ?4, end_date = ?5, publisher = ?6, description = ?7, updated_at = datetime('now')
                   WHERE id = ?8",
@@ -126,10 +126,8 @@ impl BookReportDB {
         Ok(())
     }
 
-    pub fn delete_book_report(id: &i32) -> Result<(), Box<dyn Error>> {
-        let conn = Connection::open("book_report.db").expect("Failed to open database");
-
-        conn.execute(
+    pub fn delete_book_report(&self, id: &i32) -> Result<(), Box<dyn Error>> {
+        self.conn.execute(
             "DELETE FROM book_report WHERE id = ?1",
             rusqlite::params![id],
         )
@@ -138,10 +136,8 @@ impl BookReportDB {
         Ok(())
     }
 
-    pub fn delete_all_book_report() -> Result<(), Box<dyn Error>> {
-        let conn = Connection::open("book_report.db").expect("Failed to open database");
-
-        conn.execute("DELETE FROM book_report", rusqlite::params![])
+    pub fn delete_all_book_report(&self) -> Result<(), Box<dyn Error>> {
+        self.conn.execute("DELETE FROM book_report", rusqlite::params![])
             .expect("Failed to delete all book report");
 
         Ok(())
